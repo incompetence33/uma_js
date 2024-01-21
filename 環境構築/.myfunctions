@@ -1,0 +1,106 @@
+alias l='ls -1 -v --color --group-directories-first'
+alias la='ls -lah -v --color --group-directories-first'
+alias ll='ls -lh --color --group-directories-first'
+alias ls='ls --color --group-directories-first'
+alias grep='grep --color=auto'
+alias ...='cd ../../'
+alias ....="cd ../../../"
+alias .....="cd ../../../../"
+alias mkdir='mkdir -p'
+alias ffmpeg="ffmpeg -hide_banner "
+alias aria2c="aria2c -U'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36'"
+alias aria2="aria2c -x16 -s16 -k1M"
+alias apu="sudo apt update"
+alias apug="sudo apt -y full-upgrade"
+alias api="sudo apt install"
+alias apt="sudo apt"
+mkd(){
+	mkdir -p "${1-"build"}"
+	cd "${1-"build"}"
+}
+test-f(){
+	test -f $@
+}
+
+#cdコマンドのあとに移動先のディレクトリ内を表示する関数。
+#cdだけでEnterを押してしまってもホームディレクトリに戻らないようにしてあるのですが、もとの仕様に戻すならば「${cd_c} "${1}"」を「${cd_c} "${1-"~"}"」などに変えてください。
+cd_(){
+	cd_c='cd'
+	${cd_c} "${1}" &&\
+	if [ "$(find -maxdepth 1 -name '*' | wc -l)" -le "200" ]; then ls --color --group-directories-first;else echo -ne "$(find -maxdepth 1 -name '*' | head -n200 | xargs -n2)\netc...\n";fi
+}
+alias cd="cd_"
+compdef _cd cd_
+#ここまでcd関連
+#気に入らなければ消してください。
+
+sdmou(){
+	if [ -z $1 ]; then
+		echo "You have to input name of drive"
+		else
+			DRIV=`tr '[a-z]' '[A-Z]' <<<$1`
+			DIRC=`tr '[A-Z]' '[a-z]' <<<$1`
+			if [ ! -d /mnt/${DIRC} ]; then
+				sudo mkdir /mnt/$DIRC
+			fi
+			sudo mount -t drvfs $DRIV: /mnt/$DIRC
+			cd /mnt/$DIRC
+	fi
+}
+sdumou(){
+	sudo umount /mnt/`\ls /mnt/ | fzf --reverse`
+}
+yokosen(){
+		if [ -n "${TERM}" ];
+			then SCREEN_WIDTH=$(tput cols);
+			else SCREEN_WIDTH=20;
+		fi
+		LINEWORD="-"
+		if [ -n "$1" ]; then
+			LINEWORD="$1"
+		fi
+		printf -v _hr "%*s" ${SCREEN_WIDTH} && echo ${_hr// /${1-${LINEWORD}}}
+}
+gic(){
+	git clone --depth 1 ${@} && \
+	\cd "$(echo ${@} | sed -E 's/(\.git|/)$//g' |awk -F'[ |/]' '{printf "%s\n",$NF}')" && \
+	git submodule update -init --recursive --depth 1 --recommend-shallow && \
+	yokosen && \
+	ls
+}
+gic_n(){
+	git clone ${@} && \
+	\cd "$(echo ${@}| sed -E 's/(\.git|/)$//g' |awk -F'[ |/]' '{printf "%s\n",$NF}')" && \
+	git submodule update -init --recursive --depth 1 --recommend-shallow && \
+	yokosen && \
+	ls
+}
+
+dmv (){
+	if [[ "${2: -1}" == '/' ]]; then
+		if [[ ! -d "${2/\/$(basename "${2}")}" ]]; then
+			mkdir -p "${2/\/$(basename "${2}")}"
+		fi
+	else
+		if [[ "${2}" == */* ]]; then
+			if [[ ! -d "${2/\/$(basename "${2}")}" ]]; then
+				mkdir -p "${2/\/$(basename "${2}")}"
+			fi
+		fi
+	fi
+	mv "${1}" "${2}"
+}
+dcp (){
+	if [[ "${2: -1}" == '/' ]]; then
+		if [[ ! -d "${2/\/$(basename "${2}")}" ]]; then
+			mkdir -p "${2/\/$(basename "${2}")}"
+		fi
+		else
+			if [[ "${2}" == */* ]]; then
+				if [[ ! -d "${2/\/$(basename "${2}")}" ]]; then
+					mkdir -p "${2/\/$(basename "${2}")}"
+				fi
+			fi
+	fi
+	cp -r "${1}" "${2}"
+}

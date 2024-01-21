@@ -1,0 +1,12 @@
+node_modules/
+test/
+output/*
+!output/.gitkeep
+tmp/*
+!tmp/.gitkeep
+bun.lockb
+master.mdb
+meta
+package-lock.json
+meta.txt
+out.txt
