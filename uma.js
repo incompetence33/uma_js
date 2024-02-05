@@ -35,7 +35,7 @@ async function main(){
 	fs.rmSync(tmpDir, { recursive: true, force: true });
 	fs.mkdirSync(tmpDir, {recursive: true});
 	const metaDB = await getDataFromSQDB(new sqlite3.Database(`${umamusumeDir}/meta`),"a",true);
-	const masterDBSqlite = new sqlite3.Database("./master.mdb");
+	const masterDBSqlite = new sqlite3.Database(`${umamusumeDir}/master/master.mdb`);
 	let manifests = [];
 	const assetCategories = metaDB.reduce((acc,o) => {
 		if(/manifest.*/.test(o.m)){
