@@ -19,6 +19,7 @@ setup_ubuntu(){
 	curl -Lo ~/.myfunctions "https://raw.githubusercontent.com/incompetence33/uma_js/master/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89/.myfunctions"
 	git clone https://github.com/zsh-users/zsh-completions.git ~/.zsh-completions
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.zsh-syntax-highlighting
+ 	git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.zsh-autosuggestions
 	sudo update-locale LANG="ja_JP.UTF-8"
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && \
 	yes | ~/.fzf/install 
