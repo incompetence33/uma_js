@@ -2,6 +2,7 @@
 export LANG="ja_JP.UTF-8"
 source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh-completions/zsh-completions.plugin.zsh
+source ~/.zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # あるマシンには存在するが別のマシンには存在しないパスを PATH に追加したいならば、
 # パスの後ろに (N-/) をつけるとよい
