@@ -63,15 +63,15 @@ yokosen(){
 }
 gic(){
 	git clone --depth 1 ${@} && \
-	\cd "$(echo ${@} | sed -E 's/(\.git|/)$//g' |awk -F'[ |/]' '{printf "%s\n",$NF}')" && \
-	git submodule update -init --recursive --depth 1 --recommend-shallow && \
+	\cd "$(echo ${1} | sed -E 's@(\.git|\/)$@@g' |awk -F'[ |/]' '{printf "%s\n",$NF}')" && \
+	git submodule update --init --recursive --recommend-shallow --depth 1 && \
 	yokosen && \
 	ls
 }
 gic_n(){
 	git clone ${@} && \
-	\cd "$(echo ${@}| sed -E 's/(\.git|/)$//g' |awk -F'[ |/]' '{printf "%s\n",$NF}')" && \
-	git submodule update -init --recursive --depth 1 --recommend-shallow && \
+	\cd "$(echo ${1}| sed -E 's@(\.git|\/)$@@g' |awk -F'[ |/]' '{printf "%s\n",$NF}')" && \
+	git submodule update --init --recursive --recommend-shallow --depth 1 && \
 	yokosen && \
 	ls
 }
