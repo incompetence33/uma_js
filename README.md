@@ -16,10 +16,12 @@
 ```sh
 curl -Lo ~/setup_ubuntu_zsh.sh 'https://raw.githubusercontent.com/incompetence33/uma_js/master/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89/setup_ubuntu_zsh.sh' && ~/setup_ubuntu_zsh.sh
 ```
+<br>
 
-シェルの環境は既にあるという場合はvgmstream-cli,lame,sqlite3,gitがインストールされていることを確認してください。
+シェルの環境は既にあるという場合はvgmstream-cli,lame,sqlite3,gitがインストールされていることを確認してください。  
+<br>
+次にJavascriptのランタイム [Bun](https://github.com/oven-sh/bun) をインストールします。これは環境構築スクリプトを使った人もやってください。
 
-次にJavascriptのランタイム[Bun](https://github.com/oven-sh/bun)をインストールします。これは環境構築スクリプトを使った人もやってください。  
 ```sh
 curl -fsSL https://bun.sh/install | bash
 ```
