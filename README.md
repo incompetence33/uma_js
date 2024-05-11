@@ -11,7 +11,8 @@
 
 ## ①環境整備
 初めてUbuntuを使うならば私の作った環境構築スクリプトを使うことで簡単に環境を構築できます。  
-具体的にはzshのインストール、zshの設定のインストール、vgmstream-cliのインストールなどを行います。
+具体的にはzshのインストール、zshの設定のインストール、vgmstream-cliのインストールなどを行います。  
+パスワードが途中と最後で2回求められます。入力しても画面上にはなにも変化がありませんがきちんと入力できているので入力が終わったらエンターを押してあげてください。
 ```sh
 curl -Lo ~/setup_ubuntu_zsh.sh 'https://raw.githubusercontent.com/incompetence33/uma_js/master/%E7%92%B0%E5%A2%83%E6%A7%8B%E7%AF%89/setup_ubuntu_zsh.sh' && ~/setup_ubuntu_zsh.sh
 ```
