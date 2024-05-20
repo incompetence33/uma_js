@@ -45,6 +45,6 @@ bun run uma.js
 処理のオプション等が出てくるので矢印キーやスペースキーなどで選択し、エンターキーで決定しましょう。
 
 # 補足
-もしインストールや使用時にわからないことがあれば、解決に至る質問が先にでている可能性がありますので [issues](https://github.com/incompetence33/uma_js/issues)を一度御覧ください。  
+もしインストールや使用時にわからないことがあれば、解決に至る質問が先にでている可能性がありますので [issues](https://github.com/incompetence33/uma_js/issues?q=)を一度御覧ください。  
 それでも解決しない場合新しく質問を[new issues](https://github.com/incompetence33/uma_js/issues/new/choose)からお書き下さい。  
 おまけとしてuma_pic.jsというものがあり、それを使うと公式サイト上の立ち絵をダウンロードすることができます。
