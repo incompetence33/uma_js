@@ -18,7 +18,7 @@ curl -Lo ~/setup_ubuntu_zsh.sh 'https://raw.githubusercontent.com/incompetence33
 ```
 <br>
 
-シェルの環境は既にあるという場合はvgmstream-cli,lame,sqlite3,gitがインストールされていることを確認してください。  
+シェルの環境は既にあるという場合は vgmstream-cli, lame, sqlite3, gitがインストールされていることを確認してください。  
 <br>
 次にJavascriptのランタイム [Bun](https://github.com/oven-sh/bun) をインストールします。これは環境構築スクリプトを使った人もやってください。
 
