@@ -27,7 +27,7 @@ test-f(){
 cd_(){
 	cd_c='cd'
 	${cd_c} "${1}" &&\
-	if [ "$(find -maxdepth 1 -name '*' | wc -l)" -le "200" ]; then ls --color --group-directories-first;else echo -ne "$(find -maxdepth 1 -name '*' | head -n200 | xargs -n2)\netc...\n";fi
+	if [ "$(find -maxdepth 1 -name '*' | wc -l)" -le "200" ]; then ls -v --color --group-directories-first;else echo -ne "$(find -maxdepth 1 -name '*' | head -n200 | xargs -n2)\netc...\n";fi
 }
 alias cd="cd_"
 compdef _cd cd_
@@ -37,29 +37,29 @@ compdef _cd cd_
 sdmou(){
 	if [ -z $1 ]; then
 		echo "You have to input name of drive"
-		else
-			DRIV=`tr '[a-z]' '[A-Z]' <<<$1`
-			DIRC=`tr '[A-Z]' '[a-z]' <<<$1`
-			if [ ! -d /mnt/${DIRC} ]; then
-				sudo mkdir /mnt/$DIRC
-			fi
-			sudo mount -t drvfs $DRIV: /mnt/$DIRC
-			cd /mnt/$DIRC
+	else
+		DRIV=`tr '[a-z]' '[A-Z]' <<<$1`
+		DIRC=`tr '[A-Z]' '[a-z]' <<<$1`
+		if [ ! -d /mnt/${DIRC} ]; then
+			sudo mkdir /mnt/$DIRC
+		fi
+		sudo mount -t drvfs $DRIV: /mnt/$DIRC
+		cd /mnt/$DIRC
 	fi
 }
 sdumou(){
 	sudo umount /mnt/`\ls /mnt/ | fzf --reverse`
 }
 yokosen(){
-		if [ -n "${TERM}" ];
-			then SCREEN_WIDTH=$(tput cols);
-			else SCREEN_WIDTH=20;
-		fi
-		LINEWORD="-"
-		if [ -n "$1" ]; then
-			LINEWORD="$1"
-		fi
-		printf -v _hr "%*s" ${SCREEN_WIDTH} && echo ${_hr// /${1-${LINEWORD}}}
+	if [ -n "${TERM}" ]; then
+		SCREEN_WIDTH=$(tput cols);
+		else SCREEN_WIDTH=20;
+	fi
+	LINEWORD="-"
+	if [ -n "$1" ]; then
+		LINEWORD="$1"
+	fi
+	printf -v _hr "%*s" ${SCREEN_WIDTH} && echo ${_hr// /${1-${LINEWORD}}}
 }
 gic(){
 	git clone --depth 1 ${@} && \
@@ -76,7 +76,7 @@ gic_n(){
 	ls
 }
 
-dmv (){
+dmv(){
 	if [[ "${2: -1}" == '/' ]]; then
 		if [[ ! -d "${2/\/$(basename "${2}")}" ]]; then
 			mkdir -p "${2/\/$(basename "${2}")}"
@@ -90,17 +90,17 @@ dmv (){
 	fi
 	mv "${1}" "${2}"
 }
-dcp (){
+dcp(){
 	if [[ "${2: -1}" == '/' ]]; then
 		if [[ ! -d "${2/\/$(basename "${2}")}" ]]; then
 			mkdir -p "${2/\/$(basename "${2}")}"
 		fi
-		else
-			if [[ "${2}" == */* ]]; then
-				if [[ ! -d "${2/\/$(basename "${2}")}" ]]; then
-					mkdir -p "${2/\/$(basename "${2}")}"
-				fi
+	else
+		if [[ "${2}" == */* ]]; then
+			if [[ ! -d "${2/\/$(basename "${2}")}" ]]; then
+				mkdir -p "${2/\/$(basename "${2}")}"
 			fi
+		fi
 	fi
 	cp -r "${1}" "${2}"
 }
