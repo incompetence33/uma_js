@@ -53,7 +53,8 @@ sdumou(){
 yokosen(){
 	if [ -n "${TERM}" ]; then
 		SCREEN_WIDTH=$(tput cols);
-		else SCREEN_WIDTH=20;
+	else
+		SCREEN_WIDTH=20;
 	fi
 	LINEWORD="-"
 	if [ -n "$1" ]; then
