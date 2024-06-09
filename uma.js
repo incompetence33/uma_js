@@ -66,7 +66,7 @@ async function makeIdTable(db){
 		fs.writeFileSync(`${outputDir}/${outputName}`, data.join('\n'));
 	}
 }
-async function getDataFromSQDB(db, table, close = false) {
+async function getDataFromSQDB(db, table, close = false){
 	try{
 		const rows = db.query(`SELECT * FROM ${table}`).all();
 		if(close)db.close();
