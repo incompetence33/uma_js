@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require('path');
-const sqlite3 = require("sqlite3");
+const sqlite = require("bun:sqlite");
 const util = require('util');
 const childProcess = require('child_process');
 const exec = util.promisify(childProcess.exec);
@@ -11,7 +11,7 @@ const os = require('os');
 
 let umamusumeDir, tmpDir;
 let thisFileDir = __dirname;
-let outputDir = `${thisFileDir}/output`
+let outputDir = `${thisFileDir}/output`;
 
 async function main(){
 	const cwd = process.cwd();
@@ -34,8 +34,8 @@ async function main(){
 	}
 	fs.rmSync(tmpDir, { recursive: true, force: true });
 	fs.mkdirSync(tmpDir, {recursive: true});
-	const metaDB = await getDataFromSQDB(new sqlite3.Database(`${umamusumeDir}/meta`),"a",true);
-	const masterDBSqlite = new sqlite3.Database(`${umamusumeDir}/master/master.mdb`);
+	const metaDB = await getDataFromSQDB(new sqlite.Database(`${umamusumeDir}/meta`),"a",true);
+	const masterDBSqlite = new sqlite.Database(`${umamusumeDir}/master/master.mdb`);
 	let manifests = [];
 	const assetCategories = metaDB.reduce((acc,o) => {
 		if(/manifest.*/.test(o.m)){
@@ -66,16 +66,15 @@ async function makeIdTable(db){
 		fs.writeFileSync(`${outputDir}/${outputName}`, data.join('\n'));
 	}
 }
-async function getDataFromSQDB(db, table, close = false){
-	return new Promise((resolve, reject) => {
-		db.serialize(() => {
-			db.all(`SELECT * FROM ${table}`, (err, rows) => {
-				if(err)return reject(err);
-				if(close)db.close();
-				return resolve(rows);
-			});
-		});
-	});
+async function getDataFromSQDB(db, table, close = false) {
+	try{
+		const rows = db.query(`SELECT * FROM ${table}`).all();
+		if(close)db.close();
+		return rows;
+	}catch(err){
+		if(close)db.close();
+		throw err;
+	}
 }
 async function processParallel(taskFunction, taskArray, taskParallelNum = 10){
 	return new Promise((resolve) => {
