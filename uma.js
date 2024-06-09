@@ -184,7 +184,7 @@ async function processSoundFile(db, option, parallelNum){
 				const outputFilePathTemplate = `${outputDir}/${task.n.replace(/^sound/,'sound_wav').replace(/\.awb$/,'_')}`;
 				fs.open(awbFilePath, 'r', (err, fd) => {
 					if(err){
-						console.log(`存在なし: ${awbFilePath}`);
+						console.log(`\n存在なし: ${awbFilePath}\n ┗━${task.n}`);
 						progressBar.increment({notExists: progressBar.payload.notExists + 1});
 						return resolve("OK");
 					}
@@ -286,7 +286,8 @@ let startTime;
 		await main();
 	}catch(error){
 		console.error(error);
-		console.error("また、どうしても解決しない場合");
+		console.error("うまくいかない場合「https://github.com/incompetence33/uma_js/issues?q=」に同症例の前例がないか確認してみてください");
+		console.error("また、どうしても解決しない場合「https://github.com/incompetence33/uma_js/issues/new/choose」から新しくissueをお書きください");
 	}finally{
 		const endTime = new Date();
 		const executionTimeMs = endTime - startTime;
@@ -296,6 +297,6 @@ let startTime;
 		const secondsRemainder = seconds % 60;
 		const minutesRemainder = minutes % 60;
 		console.log("\n\n");
-		if(startTime)console.log(`実行時間: ${hours > 0 ? String(hours).padStart(2, '0') + '時間 ' : ''}${minutes > 0 ? String(minutesRemainder).padStart(2, '0') + '分 ' : ''}${String(secondsRemainder).padStart(2, '0')}秒 (${executionTimeMs}ms)`);
+		if(startTime)console.log(`\n実行時間: ${hours > 0 ? String(hours).padStart(2, '0') + '時間 ' : ''}${minutes > 0 ? String(minutesRemainder).padStart(2, '0') + '分 ' : ''}${String(secondsRemainder).padStart(2, '0')}秒 (${executionTimeMs}ms)`);
 	}
 })();
