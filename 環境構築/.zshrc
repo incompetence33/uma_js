@@ -23,6 +23,10 @@ path=(
 export PYTHONIOENCODING=utf-8
 alias ffprobe="ffprobe -hide_banner "
 
+for SCRIP in $([[ -d ~/shellscripts ]] && find ~/shellscripts -maxdepth 1 -name "*.sh");do
+	alias "$(basename ${SCRIP/%.*})"="$(basename $SCRIP)"
+done
+
 #ここをいじるなら少し調べてしっかり理解してからにするといいだろう。
 setopt append_history
 setopt auto_cd
@@ -112,8 +116,5 @@ if [ -d $HOME/.anyenv ]; then
     eval "$(anyenv init -)"
 fi
 # bun completions
-[ -s "/home/uni/.bun/_bun" ] && source "/home/uni/.bun/_bun"
-
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+[ -d "$HOME/.bun" ] && export BUN_INSTALL="$HOME/.bun" && export PATH="$BUN_INSTALL/bin:$PATH"
