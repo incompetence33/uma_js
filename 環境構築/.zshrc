@@ -1,8 +1,5 @@
 #書き換えるときには十分注意されたし。
 export LANG="ja_JP.UTF-8"
-source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh-completions/zsh-completions.plugin.zsh
-source ~/.zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # あるマシンには存在するが別のマシンには存在しないパスを PATH に追加したいならば、
 # パスの後ろに (N-/) をつけるとよい
@@ -118,3 +115,7 @@ fi
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 [ -d "$HOME/.bun" ] && export BUN_INSTALL="$HOME/.bun" && export PATH="$BUN_INSTALL/bin:$PATH"
+
+source ~/.zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh-completions/zsh-completions.plugin.zsh
+source ~/.zsh-autosuggestions/zsh-autosuggestions.zsh
